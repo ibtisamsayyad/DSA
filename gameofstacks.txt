@@ -1,0 +1,34 @@
+static int twoStacks(int x, int[] a, int[] b) {
+        
+        int sum = 0;
+        int count = 0;
+        int iA = 0;
+        int iB = 0;
+
+        while(iB < b.Length && sum + b[iB] <= x){
+            sum += b[iB];
+            iB++;
+        }
+        count = iB;  
+        iB--;
+        
+            
+        while(iA < a.Length && iB < b.Length){
+            sum += a[iA];
+    
+            if(sum > x){
+                while(iB >= 0){
+                    sum -= b[iB];
+                    iB--;
+                    if(sum <= x) break;
+                }
+                if(sum > x && iB < 0){
+                    iA--;
+                    break;
+                }
+            }
+            count = Math.Max(iA + iB + 2, count);
+            iA++;
+        }
+        return count;
+    }
